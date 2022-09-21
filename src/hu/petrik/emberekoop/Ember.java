@@ -25,9 +25,20 @@ public class Ember {
         return Integer.parseInt(szulDatum.split("-")[2]);
     }
 
+    public LocalDate getSzuletesiDate() {
+        return LocalDate.parse(szulDatum);
+    }
+
     public int getEletkor() {
         LocalDate maiDatum = LocalDate.now();
-        return maiDatum.getYear() - this.getSzuletesiEv();
+        var age = maiDatum.getYear() - this.getSzuletesiEv();
+
+        if (this.getSzuletesiHonap() <= maiDatum.getMonthValue()
+                && this.getSzuletesiNap() <= maiDatum.getDayOfMonth()) {
+            age--;
+        }
+
+        return age;
     }
 
     @Override
